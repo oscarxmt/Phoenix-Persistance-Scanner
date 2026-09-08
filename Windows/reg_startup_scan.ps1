@@ -6,7 +6,7 @@ $RunKeys = @(
     "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce"
 )
 
-Write-Host "[*] Checking Registry Run Keys..." -ForegroundColor Cyan
+Write-Host "[*] Checking Registry Run Keys..."
 foreach ($Key in $RunKeys) {
     if (Test-Path $Key) {
         Get-ItemProperty -Path $Key | Get-Member -MemberType NoteProperty | ForEach-Object {
@@ -21,5 +21,3 @@ foreach ($Key in $RunKeys) {
     }
 }
 
-Write-Host "`n[*] Checking Scheduled Tasks..." -ForegroundColor Cyan
-Get-ScheduledTask | Where-Object {$_.State -ne "Disabled"} | Select-Object TaskName, TaskPath, State | Name * -First 10
