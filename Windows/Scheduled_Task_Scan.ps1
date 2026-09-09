@@ -6,6 +6,6 @@ $user = $env:username
 
 $finalfilename = $user + "_ScheduledTask"
 
-Get-ScheduledTask | Where-Object {$_.State -ne "Disabled"} | Select-Object TaskName, TazskPath, State > $currentdir\$finalfilename.txt
+Get-ScheduledTask | Where-Object {$_.State -ne "Disabled"} | Select-Object TaskName, TaskPath, State > $currentdir\$finalfilename.txt
 
 Write-Host "[*] Scheduled tasks saved to C:\Users\$user\Desktop\$finalfilename.txt" 
