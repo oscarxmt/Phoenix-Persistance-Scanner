@@ -3,6 +3,7 @@
 import platform
 import os
 import subprocess
+import argparse
 
 def windows():
     print("[!] Started scanning...")
@@ -30,8 +31,11 @@ def windows():
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Persistence Scanner")
+    args = parser.parse_args()
+
     current_os = platform.system()
-    
+
     print(f"[-] Detected operating system: {current_os}")
     print("=" * 40)
     
