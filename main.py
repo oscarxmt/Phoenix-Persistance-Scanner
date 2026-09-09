@@ -1,34 +1,21 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 import platform
 import os
-import subprocess
 import argparse
 
 def windows():
     print("[!] Started scanning...")
-    script_path = "Windows/scan.ps1"
+    script_path = "Windows/win_main.ps1"
     
-    if os.path.exists(script_path):
-        # Read the contents of your script
-        with open(script_path, "r", encoding="utf-8") as f:
-            ps_script_code = f.read()
-        
-        # Run powershell without any execution policy flags
-        process = subprocess.Popen(
-            ["powershell.exe", "-NoProfile", "-Command", "-"],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
-        
-        # Send the script code and get the output
-        stdout, stderr = process.communicate(input=ps_script_code)
-        print(stdout)
-    else:
-        print(f"[X] Error: {script_path} not found.")
+    if not os.path.exists(script_path):
+        print(f"[X] Error: {script_path} not found. Please ensure the script is in the correct location.")
+    
+    #print(f"[!] Found {script_path}. Executing...")
 
+    ## Here you would add the code to execute the PowerShell script if needed.
+    # os.system(f"powershell -ExecutionPolicy Bypass -File {script_path}")¨
+    
 
 def main():
     parser = argparse.ArgumentParser(description="Persistence Scanner")
