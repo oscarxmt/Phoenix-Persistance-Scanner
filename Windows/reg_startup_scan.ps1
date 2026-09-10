@@ -8,3 +8,4 @@ $Startup_RunKeys = @(
 )
 
 write-host "[*] Checking Registry Run Keys..."
+
