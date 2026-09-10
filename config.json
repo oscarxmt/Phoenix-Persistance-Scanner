@@ -1,0 +1,17 @@
+{
+    "checks": {
+        "registry_run_keys": true,
+        "scheduled_tasks": true,
+        "startup_folders": true,
+        "services": true,
+        "wmi_persistence": true
+    },
+    "output": {
+        "format": "json",
+        "file": "./data/scan_results.json"
+    },
+    "scan_settings": {
+        "flag_unsigned_binaries": true,
+        "flag_recent_hours": 24
+    }
+}
