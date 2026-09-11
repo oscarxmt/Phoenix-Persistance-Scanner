@@ -11,6 +11,7 @@ def json_config():
     
     if not os.path.exists(config_path):
         print(f"[X] Error: {config_path} not found. Please check if the configuration file is in the correct location.")
+        exit()
     
     with open(config_path, 'r') as f:
         return json.load(f)
@@ -24,16 +25,18 @@ def windows():
     
     if not os.path.exists(scripts_path):
         print(f"[X] Error: {scripts_path} not found. Please ensure the Windows folder within this repo, is in the correct location.")
-
+        exit()
     config = json_config()
+    if config is None:
+        return
+    checks = {
+        "registry_run_keys": "Windows/reg_startup_scan.ps1",
+        "startup_folders": "Windows/startup_folders.ps1",
+    }
 
-    if config and config["checks"]["registry_run_keys"]:
-        subprocess.run(["powershell", "-ExecutionPolicy", "Bypass", "-File", registry_run_keys])
-        # bro just run the powershell script for scanning registry run keys
-        # I love debugging :3¨
-    if config and config["checks"]["startup_folders"]:
-        subprocess.run(["powershell", "-ExecutionPolicy", "Bypass", "-File", startup_folders_scan])
-
+    for check_name, script in checks.items():
+        if config["checks"].get(check_name):
+            subprocess.run(["powershell", "-ExecutionPolicy", "Bypass", "-File", script])
 def main():
     parser = argparse.ArgumentParser(description="Persistence Scanner")
     args = parser.parse_args()
